@@ -1,0 +1,3 @@
+10 LOAD *"d";0;"bas2cpm"CODE 32768
+20 LOAD *"d";0;"cpmboot"CODE 25000
+30 RANDOMIZE USR 32768
