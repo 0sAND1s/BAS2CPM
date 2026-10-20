@@ -1,14 +1,23 @@
 	DEVICE ZXSPECTRUM48
 	
-	org	$8000
+	org	$8000 - (MoverEnd - Mover)
 	
+Mover:
+	ld	hl, MoverEnd - Mover
+	add	hl, bc
+	ld	bc, End - Start
+	ld	de, Start
+	ldir
+	jp	Start
+MoverEnd:
+Start:
 	;page CP/M ROM at $E000
 	di
 	ld	sp, $8000
 	ld	a, $0F
 	out	($7E), a
 		
-	;call CPM init
+	;call CPM init BIOS function
 	CALL    $E000	
 	
 	;move boot code to $BD00, since $C000 is now a new memory bank.
@@ -17,5 +26,6 @@
 	ld	de, $BD00
 	ldir
 	
-	;Jump to CPM cold boot
+	;Jump to CPM BDOS init
 	jp	$D300	
+End:
